@@ -4,7 +4,7 @@ import spacy
 import os
 
 nlp = spacy.load("en_core_web_sm")
-doc = nlp(open(os.path.join(os.getcwd(), "data/preprocessed/train/sentences.txt")).read())
+doc = nlp(open(os.path.join(os.getcwd(), "data/preprocessed/train/sentences.txt"),encoding="utf8").read())
 
 nb_tokens = 0
 nb_words = 0
