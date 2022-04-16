@@ -6,6 +6,7 @@ import os
 nlp = spacy.load("en_core_web_sm")
 doc = nlp(open(os.path.join(os.getcwd(), "data/preprocessed/train/sentences.txt"),encoding="utf8").read())
 
+# 1. Tokenization
 nb_tokens = 0
 nb_words = 0
 nb_chars = 0
@@ -27,6 +28,8 @@ print(f"There are {len([x for x in doc.sents])} sentences in the document, so th
 print(f"There are {nb_words} words and a total of {nb_chars} letters in those words; so the average "
     f"number of letters per word is: {nb_chars} / {nb_words} = {round(nb_chars / nb_words,2)}\n")
 
+
+# 2. Word Classes
 pos_frequencies_top_10 = {pos_tag: freq for pos_tag, freq in sorted(pos_frequencies.items(), key=lambda item:item[1], reverse=True)[:10]}
 print(pos_frequencies_top_10)
 
@@ -43,7 +46,7 @@ for key in word_frequencies.keys():
     print(f"Least frequent word of part-of-speech {key}:")
     print({word: freq for word, freq in sorted(word_frequencies[key].items(), key=lambda item:item[1])[:1]})
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ N-Grams ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# 3. N-grams
 
 bigrams = {}
 trigrams = {}
@@ -67,6 +70,8 @@ bigrams_top_3 = {ngram: freq for ngram, freq in sorted(bigrams.items(), key=lamb
 print(bigrams_top_3)
 trigrams_top_3 = {ngram: freq for ngram, freq in sorted(trigrams.items(), key=lambda item:item[1], reverse=True)[:3]}
 print(trigrams_top_3)
+
+# 4. Lemmatization
 
 
 
