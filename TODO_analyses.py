@@ -67,6 +67,16 @@ bigrams_top_3 = {ngram: freq for ngram, freq in sorted(bigrams.items(), key=lamb
 print(bigrams_top_3)
 trigrams_top_3 = {ngram: freq for ngram, freq in sorted(trigrams.items(), key=lambda item:item[1], reverse=True)[:3]}
 print(trigrams_top_3)
-
-
-
+print("Part 5     ------------------- NER 5 Sentence, Some addition should add to report should add to report")
+#Part 5
+sentences=[x for x in doc.sents]
+first_five_sent=(sentences[:5])
+first_five_sent_text=''.join(str(e) for e in first_five_sent)
+doc_obj=nlp(first_five_sent_text)
+ners_first_five=[]
+for word in doc_obj.ents:
+    ners_first_five.append(word.label_)
+    #print(word.text,word.label_)
+first_five_sen_disting_ners=set(ners_first_five)
+print('Number of named entities ',len(ners_first_five))
+print('Number of different entity labels',len(first_five_sen_disting_ners))
