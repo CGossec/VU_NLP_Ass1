@@ -35,22 +35,22 @@ if __name__ == '__main__':
 
     # Note: this loads all instances into memory. If you work with bigger files in the future, use an iterator instead.
 
-    with open(train_path + "sentences.txt") as sent_file:
+    with open(train_path + "sentences.txt",encoding='utf-8') as sent_file:
         train_sentences = sent_file.readlines()
 
-    with open(train_path + "labels.txt") as label_file:
+    with open(train_path + "labels.txt",encoding='utf-8') as label_file:
         train_labels = label_file.readlines()
 
 
-    with open(dev_path + "sentences.txt") as dev_file:
+    with open(dev_path + "sentences.txt",encoding='utf-8') as dev_file:
         dev_sentences = dev_file.readlines()
 
-    with open(train_path + "labels.txt") as dev_label_file:
+    with open(train_path + "labels.txt",encoding='utf-8') as dev_label_file:
         dev_labels = dev_label_file.readlines()
-    with open(test_path + "sentences.txt") as testfile:
+    with open(test_path + "sentences.txt",encoding='utf-8') as testfile:
         testinput = testfile.readlines()
 
-    with open("test_path + labels.txt") as test_labelfile:
+    with open("test_path + labels.txt",encoding='utf-8') as test_labelfile:
         testlabels = test_label_file.readlines()
     majority_accuracy, majority_predictions = majority_baseline(train_sentences, train_labels, testinput)
 
