@@ -82,7 +82,7 @@ def evaluate_and_output(model, loss_fn, data_iterator, metrics, num_steps, id2wo
     summ = []
 
     # compute metrics over the dataset
-    with open(outfile, "w") as f:
+    with open(outfile, "w",encoding='utf-8') as f:
         for _ in range(num_steps):
             # fetch the next evaluation batch
             data_batch, labels_batch = next(data_iterator)

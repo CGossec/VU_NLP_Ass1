@@ -18,17 +18,17 @@ class Params():
     """
 
     def __init__(self, json_path):
-        with open(json_path) as f:
+        with open(json_path,encoding='utf-8') as f:
             params = json.load(f)
             self.__dict__.update(params)
 
     def save(self, json_path):
-        with open(json_path, 'w') as f:
+        with open(json_path, 'w',encoding='utf-8') as f:
             json.dump(self.__dict__, f, indent=4)
 
     def update(self, json_path):
         """Loads parameters from json file"""
-        with open(json_path) as f:
+        with open(json_path,encoding='utf-8') as f:
             params = json.load(f)
             self.__dict__.update(params)
 
@@ -98,7 +98,7 @@ def save_dict_to_json(d, json_path):
         d: (dict) of float-castable values (np.float, int, float, etc.)
         json_path: (string) path to json file
     """
-    with open(json_path, 'w') as f:
+    with open(json_path, 'w',encoding='utf-8') as f:
         # We need to convert the values to float for json (it doesn't accept np.array, np.float, )
         d = {k: float(v) for k, v in d.items()}
         json.dump(d, f, indent=4)
