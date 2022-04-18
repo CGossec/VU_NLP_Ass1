@@ -6,12 +6,8 @@ import os
 nlp = spacy.load("en_core_web_sm")
 doc = nlp(open(os.path.join(os.getcwd(), "data/preprocessed/train/sentences.txt"),encoding="utf8").read())
 
-<<<<<<< HEAD
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Basic tokenization ~~~~~~~~~~~~~~~~~~~~~~
 
-=======
-# 1. Tokenization
->>>>>>> 343856b (adding headers so i know what has eben done)
 nb_tokens = 0
 nb_words = 0
 nb_chars = 0
@@ -33,13 +29,8 @@ print(f"There are {len([x for x in doc.sents])} sentences in the document, so th
 print(f"There are {nb_words} words and a total of {nb_chars} letters in those words; so the average "
     f"number of letters per word is: {nb_chars} / {nb_words} = {round(nb_chars / nb_words,2)}\n")
 
-<<<<<<< HEAD
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Word classes ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-=======
-
-# 2. Word Classes
->>>>>>> 343856b (adding headers so i know what has eben done)
 pos_frequencies_top_10 = {pos_tag: freq for pos_tag, freq in sorted(pos_frequencies.items(), key=lambda item:item[1], reverse=True)[:10]}
 print(pos_frequencies_top_10)
 
