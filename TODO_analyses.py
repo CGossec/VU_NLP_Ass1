@@ -47,7 +47,7 @@ for key in word_frequencies.keys():
     print(f"Least frequent word of part-of-speech {key}:")
     print({word: freq for word, freq in sorted(word_frequencies[key].items(), key=lambda item:item[1])[:1]})
 
-# 3. N-grams
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ N-grams ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 bigrams = {}
 trigrams = {}
