@@ -1,2 +1,6 @@
 .idea
+.history
 venv
+settings.json
+*.pyc
+experiments/
