@@ -14,7 +14,7 @@ nb_chars = 0
 pos_frequencies = {}
 for token in doc:
     nb_tokens += 1
-    if token.is_alpha:
+    if not token.is_punct:
         nb_words += 1
         nb_chars += len(token.text)
     if token.pos_ not in pos_frequencies:
