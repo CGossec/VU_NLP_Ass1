@@ -17,8 +17,6 @@ print(f"Min, max, median, mean, and stdev of the probabilistic label in doc are:
       f"{df['Probabilistic'].max()}, {df['Probabilistic'].median()}, {df['Probabilistic'].mean()} "
       f"and {df['Probabilistic'].std()}.")
 
-#df.to_csv('data/original/english/WikiNews_Train_extracted.tsv', sep='\t', header=None, index=False)
-
 counter = 0
 max = 0
 for row in range(len(df)):
