@@ -170,7 +170,8 @@ print(f"Min, max, median, mean, and stdev of the probabilistic label in doc are:
 counter = 0
 max = 0
 
-data=[] # list for the instances of single tokens for the Target word
+data=[] # list for the instances of single tokens for the Target word, only used for creating dataset
+# Counting number of tokens and determining the max token length
 for row in range(len(df)):
     doc = nlp(df.loc[row, "Target word"])
     counter_row = 0
@@ -194,7 +195,7 @@ print(f"Maximum number of tokens for an instance is: {max}")
 
 df_single = pd.read_csv('data/original/english/WikiNews_Train_single.tsv', sep='\t')
 
-# creating a datafile with the columns length, frequency and POS-tag, it is commented out as the file has been created
+# Creating datafile with the columns: length, frequency and POS-tag. It is commented out as the file is already created
 
 # df_single.columns = ["Target word", "Binary", "Probabilistic"]
 # length = []
@@ -214,11 +215,14 @@ df_single = pd.read_csv('data/original/english/WikiNews_Train_single.tsv', sep='
 
 df_single.columns = ["Target word", "Binary", "Probabilistic","Length", "Frequency", "POS-tag"]
 
+# Calculating the Pearson correlation
 
 print(f"The Pearson correlation of length and complexity is: "
       f"{df_single['Length'].corr(df_single['Probabilistic'])}")
 print(f"The Pearson correlation of frequency and complexity is: "
       f"{df_single['Frequency'].corr(df_single['Probabilistic'])}")
+
+# Forming the scatterplots
 print(f"scatterplot complexity and length")
 plt.scatter(data=df_single, x='Length', y='Probabilistic')
 plt.xlabel("Length")
