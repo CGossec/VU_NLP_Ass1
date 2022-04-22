@@ -33,7 +33,7 @@ def preprocessing(testinput: List[str], testlabels: List[str]) -> pd.DataFrame:
     return df
 
 
-def majority_baseline(train_sentences: List[str], train_labels: List[str], testinput: List[str], testlabels: List[str]) -> Tuple[float, pd.DataFrame]:
+def majority_baseline(testinput: List[str], testlabels: List[str]) -> Tuple[float, pd.DataFrame]:
     # TODO: determine the majority class based on the training data
     # ...
 
@@ -49,7 +49,7 @@ def majority_baseline(train_sentences: List[str], train_labels: List[str], testi
     return accuracy, df
 
 
-def random_baseline(train_sentences: List[str], train_labels: List[str], testinput: List[str], testlabels: List[str]) -> Tuple[float, pd.DataFrame]:
+def random_baseline(testinput: List[str], testlabels: List[str]) -> Tuple[float, pd.DataFrame]:
     # TODO: determine the majority class based on the training data
     # ...
     df = preprocessing(testinput, testlabels)
@@ -71,7 +71,7 @@ def random_baseline(train_sentences: List[str], train_labels: List[str], testinp
     return accuracy, df
 
 
-def length_baseline(train_sentences: List[str], train_labels: List[str], testinput: List[str], testlabels: List[str]) -> Tuple[float, pd.DataFrame]:
+def length_baseline(testinput: List[str], testlabels: List[str]) -> Tuple[float, pd.DataFrame]:
     # TODO: determine the majority class based on the training data
     # ...
     length = 7
@@ -85,7 +85,7 @@ def length_baseline(train_sentences: List[str], train_labels: List[str], testinp
     accuracy = accuracy_score(df["Labels"], df["prediction"])
     return accuracy, df
 
-def frequency_baseline(train_sentences: List[str], train_labels: List[str], testinput: List[str], testlabels: List[str])  -> Tuple[float, pd.DataFrame]:
+def frequency_baseline(testinput: List[str], testlabels: List[str])  -> Tuple[float, pd.DataFrame]:
     # TODO: determine the majority class based on the training data
     # ...
     freq = 2
@@ -123,24 +123,25 @@ if __name__ == '__main__':
         testlabels = test_label_file.readlines()
 
     #Returning result dfs and acc for both test and dev
-    majority_accuracy_test, majority_predictions_test_df = majority_baseline(train_sentences, train_labels, testinput, testlabels)
-    majority_accuracy_dev, majority_predictions_dev_df = majority_baseline(train_sentences, train_labels, dev_sentences, dev_labels)
+    majority_accuracy_test, majority_predictions_test_df = majority_baseline(testinput, testlabels)
+    majority_accuracy_dev, majority_predictions_dev_df = majority_baseline(dev_sentences, dev_labels)
 
-    random_accuracy_test, random_predictions_test_df = random_baseline(train_sentences, train_labels, testinput, testlabels)
-    random_accuracy_dev, random_predictions_dev_df = random_baseline(train_sentences, train_labels, dev_sentences, dev_labels)
+    random_accuracy_test, random_predictions_test_df = random_baseline(testinput, testlabels)
+    random_accuracy_dev, random_predictions_dev_df = random_baseline(dev_sentences, dev_labels)
 
-    length_accuracy_test, length_predictions_test_df = length_baseline(train_sentences, train_labels, testinput, testlabels)
-    length_accuracy_dev, length_predictions_dev_df = length_baseline(train_sentences, train_labels, dev_sentences, dev_labels)
+    length_accuracy_test, length_predictions_test_df = length_baseline(testinput, testlabels)
+    length_accuracy_dev, length_predictions_dev_df = length_baseline(dev_sentences, dev_labels)
 
-    freq_accuracy_test, freq_predictions_test_df = frequency_baseline(train_sentences, train_labels, testinput, testlabels)
-    freq_accuracy_dev, freq_predictions_dev_df = frequency_baseline(train_sentences, train_labels, dev_sentences, dev_labels)
+    freq_accuracy_test, freq_predictions_test_df = frequency_baseline(testinput, testlabels)
+    freq_accuracy_dev, freq_predictions_dev_df = frequency_baseline(dev_sentences, dev_labels)
 
     # TODO: output the predictions in a suitable way so that you can evaluate them
-    print("majority_accuracy_test", majority_accuracy_test)
-    print("majority_accuracy_dev", majority_accuracy_dev)
-    print("random_accuracy_test", random_accuracy_test)
-    print("random_accuracy_dev", random_accuracy_dev)
-    print("length_accuracy_test", length_accuracy_test)
-    print("length_accuracy_dev", length_accuracy_dev)
-    print("freq_accuracy_test", freq_accuracy_test)
-    print("freq_accuracy_dev", freq_accuracy_dev)
+    print(f"random_accuracy_dev {round(random_accuracy_dev * 100, 2)}%")
+    print(f"majority_accuracy_dev {round(majority_accuracy_dev * 100, 2)}%")
+    print(f"length_accuracy_dev {round(length_accuracy_dev * 100, 2)}%")
+    print(f"freq_accuracy_dev {round(freq_accuracy_dev * 100, 2)}%\n")
+
+    print(f"random_accuracy_test {round(random_accuracy_test * 100, 2)}%")
+    print(f"majority_accuracy_test {round(majority_accuracy_test * 100, 2)}%")
+    print(f"length_accuracy_test {round(length_accuracy_test * 100, 2)}%")
+    print(f"freq_accuracy_test {round(freq_accuracy_test * 100, 2)}%")
