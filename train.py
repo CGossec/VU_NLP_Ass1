@@ -86,7 +86,7 @@ def train(model, optimizer, loss_fn, data_iterator, metrics, params, num_steps):
     logging.info("- Train metrics: " + metrics_string)
 
 
-def train_and_evaluate(model, train_data, val_data, optimizer, loss_fn, metrics, params, model_dir, restore_file=None):
+def train_and_evaluate(model, train_data, val_data, optimizer, loss_fn, metrics, params, model_dir, restore_file=None, data_loader_external=None):
     """Train the model and evaluate every epoch.
 
     Args:
@@ -108,6 +108,8 @@ def train_and_evaluate(model, train_data, val_data, optimizer, loss_fn, metrics,
         utils.load_checkpoint(restore_path, model, optimizer)
 
     best_val_acc = 0.0
+    # if data_loader_external is not None:
+    #     data_loader = data_loader_external
 
     for epoch in range(params.num_epochs):
         # Run one epoch
