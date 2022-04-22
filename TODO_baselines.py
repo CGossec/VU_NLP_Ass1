@@ -6,7 +6,7 @@
 
 from model.data_loader import DataLoader
 import random
-random.seed(2)
+random.seed(5)
 import pandas as pd
 import numpy as np
 from sklearn.metrics import accuracy_score
@@ -22,7 +22,8 @@ def preprocessing(testinput: List[str], testlabels: List[str]) -> pd.DataFrame:
     token_arr = []
     for instance, labels in zip(testinput,testlabels):
         tokens = instance.split(" ")
-        labels = split(labels.replace(' ', ''))
+        labels = labels.replace(' ', '')
+        labels = split(labels.replace('\n', ''))
         for token, label in zip(tokens, labels):
             token_arr.append(token)
             label_arr.append(label)
@@ -38,10 +39,9 @@ def majority_baseline(testinput: List[str], testlabels: List[str]) -> Tuple[floa
     # ...
     df = preprocessing(testinput, testlabels)
     majority_class = df['Labels'].mode()[0]
-
+    
     df["prediction"] = majority_class
     df["prediction"] = np.where(df["Labels"] == "--", "--", df["prediction"])
-
     # TODO: calculate accuracy for the test input
     # ...
     accuracy = accuracy_score(df["Labels"], df["prediction"])
@@ -67,12 +67,11 @@ def random_baseline(testinput: List[str], testlabels: List[str]) -> Tuple[float,
 def length_baseline(testinput: List[str], testlabels: List[str]) -> Tuple[float, pd.DataFrame]:
     # TODO: determine the majority class based on the training data
     # ...
-    length = 14
+    length = 13
     df = preprocessing(testinput, testlabels)
 
     df["prediction"] = np.where(df["Tokens"].str.len() > length, "C", "N")
     df["prediction"] = np.where(df["Labels"] == "--", "--", df["prediction"])
-
     # TODO: calculate accuracy for the test input
     # ...
     accuracy = accuracy_score(df["Labels"], df["prediction"])
@@ -121,15 +120,19 @@ if __name__ == '__main__':
     #Returning result dfs and acc for both test and dev
     majority_accuracy_test, majority_predictions_test_df = majority_baseline(testinput, testlabels)
     majority_accuracy_dev, majority_predictions_dev_df = majority_baseline(dev_sentences, dev_labels)
+    majority_predictions_test_df.to_csv('experiments/base_model/majority_baseline.tsv', sep="\t",index=False)
 
     random_accuracy_test, random_predictions_test_df = random_baseline(testinput, testlabels)
     random_accuracy_dev, random_predictions_dev_df = random_baseline(dev_sentences, dev_labels)
-
+    random_predictions_test_df.to_csv('experiments/base_model/random_baseline.tsv', sep="\t",index=False)
+   
     length_accuracy_test, length_predictions_test_df = length_baseline(testinput, testlabels)
     length_accuracy_dev, length_predictions_dev_df = length_baseline(dev_sentences, dev_labels)
+    length_predictions_test_df.to_csv('experiments/base_model/length_baseline.tsv', sep="\t",index=False)
 
     freq_accuracy_test, freq_predictions_test_df = frequency_baseline(testinput, testlabels)
     freq_accuracy_dev, freq_predictions_dev_df = frequency_baseline(dev_sentences, dev_labels)
+    freq_predictions_test_df.to_csv('experiments/base_model/freq_baseline.tsv', sep="\t",index=False)
 
     # TODO: output the predictions in a suitable way so that you can evaluate them
     print(f"random_accuracy_dev {round(random_accuracy_dev * 100, 2)}%")

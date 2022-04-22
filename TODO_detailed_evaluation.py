@@ -40,11 +40,11 @@ def compute_precision(predictions: List[str], labels: List[str], target_class: s
             total += 1
         if pred == target_class and label == negative_class: # False positives
             total += 1
-    return correct / total * 100
+    return (correct / total * 100) if total != 0 else 0
 
 
 def compute_F_measure(recall: float, precision: float, beta: float = 1) -> float:
-    return (beta ** 2 + 1) * precision * recall / (beta ** 2 * (precision + recall))
+    return ((beta ** 2 + 1) * precision * recall / (beta ** 2 * (precision + recall))) if precision != 0 else 0
 
 if __name__ == '__main__':
     args = parser.parse_args()
