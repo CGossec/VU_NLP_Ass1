@@ -70,6 +70,7 @@ for token in doc:
 bigrams_top_3 = {ngram: freq for ngram, freq in sorted(bigrams.items(), key=lambda item:item[1], reverse=True)[:3]}
 print(f"Top 3 bigrams are: {bigrams_top_3}")
 trigrams_top_3 = {ngram: freq for ngram, freq in sorted(trigrams.items(), key=lambda item:item[1], reverse=True)[:3]}
+sentences=[x for x in doc.sents]
 print(f"Top 3 trigrams are: {trigrams_top_3}")
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ POS N-grams ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
