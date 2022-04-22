@@ -1,4 +1,15 @@
 This project contains code for part 1 of the course Natural Language Processing Technology 2022 at VU Amsterdam put together by Lisa Beinborn.
+Student 1
+Name: Celian GOSSEC
+Student id: 2750492
+
+Student 2
+Name: Ahmet Zafer SAGLIK
+Student id: 2734817
+
+Student 3
+Name: Mickey van Immerseel
+Student id: 2693643
 
 References:
 The modelling part draws substantially on the code project for the Stanford course cs230-stanford developed by Surag Nair, Guillaume Genthial and Olivier Moindrot (https://github.com/cs230-stanford/cs230-code-examples/tree/master/pytorch/nlp).
