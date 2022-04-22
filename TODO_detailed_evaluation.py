@@ -4,6 +4,11 @@ import argparse
 import os
 from typing import List
 import numpy as np
+import matplotlib.pyplot as plt
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--model_dir', default='experiments/base_model',
+                    help="Directory containing model_output.tsv")
 
 def compute_recall(predictions: List[str], labels: List[str], target_class: str = "C") -> float:
     correct = 0
@@ -42,15 +47,30 @@ def compute_F_measure(recall: float, precision: float, beta: float = 1) -> float
     return (beta ** 2 + 1) * precision * recall / (beta ** 2 * (precision + recall))
 
 if __name__ == '__main__':
-    pred_file = os.path.join(os.getcwd(), "experiments/base_model/model_output.tsv")
+    args = parser.parse_args()
+    pred_file = os.path.join(os.getcwd(), f"{args.model_dir}/model_output.tsv")
     with open(pred_file, 'r') as f:
         lines = f.readlines()
     lines = np.array([np.array(line.split()) for line in lines if len(line.split()) > 1])
 
+    Fmeasure = {}
     for target_class in ["C", "N"]:
         precision = compute_precision(lines.T[2], lines.T[1], target_class)
         print(f"Model has a precision of {round(precision, 2)}% for class {target_class}")
         recall = compute_recall(lines.T[2], lines.T[1], target_class)
         print(f"Model has a recall of {round(recall, 2)}% for class {target_class}")
-        Fmeasure = compute_F_measure(recall, precision)
-        print(f"Model has a F1 measure of {round(Fmeasure, 2)}% for class {target_class}")
+        Fmeasure[target_class] = compute_F_measure(recall, precision)
+        print(f"Model has a F1 measure of {round(Fmeasure[target_class], 2)}% for class {target_class}")
+
+    nb_class_C = 0
+    nb_class_N = 0
+    for label in lines.T[1]:
+        if label == "C":
+            nb_class_C += 1
+        else:
+            nb_class_N += 1
+
+    weighted_F1 = (Fmeasure["C"] * nb_class_C + Fmeasure["N"] * nb_class_N) / (nb_class_C + nb_class_N)
+    print(f"Model has a weighted F1 of {round(weighted_F1, 2)}%")
+    macroaverage_F1 = (Fmeasure["C"] + Fmeasure["N"]) / 2
+    print(f"Model has a macroaverage F1 of {round(macroaverage_F1, 2)}%")
