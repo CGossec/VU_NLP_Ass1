@@ -4,7 +4,6 @@
 # Length baseline: determines the class based on a length threshold
 # Frequency baseline: determines the class based on a frequency threshold
 
-from model.data_loader import DataLoader
 import random
 random.seed(5)
 import pandas as pd

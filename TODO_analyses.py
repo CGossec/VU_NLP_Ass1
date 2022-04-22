@@ -2,7 +2,6 @@
 # Run them on data/preprocessed/train/sentences.txt
 import spacy
 import os
-import spacy
 import pandas as pd
 from wordfreq import word_frequency
 import matplotlib.pyplot as plt
